@@ -31,7 +31,7 @@ const CardTask = ({ data: { description, status, id } }: CardTaskProps) => {
   const router = useRouter();
 
   return (
-    <div
+    <li
       onClick={() => router.push(`/form/${id}`)}
       className={`flex h-20 w-full cursor-pointer items-center justify-between rounded-lg 
       border border-l-8 border-grayLight bg-zinc-50 p-4 transition duration-300 ${getStatusColor(
@@ -44,7 +44,7 @@ const CardTask = ({ data: { description, status, id } }: CardTaskProps) => {
       >
         {StatusEnumFormatted[status]}
       </span>
-    </div>
+    </li>
   );
 };
 

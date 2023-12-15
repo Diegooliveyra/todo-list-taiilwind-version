@@ -1,4 +1,4 @@
-"use client";
+// Importe React, useState e useEffect aqui, se ainda não foram importados
 import React, { useState, useEffect } from "react";
 
 export interface PaginationProps {
@@ -32,28 +32,28 @@ const Pagination: React.FC<PaginationProps> = ({ actualPage, totalPage, setNumbe
     setSelectedElement(actualPage);
   }, [actualPage]);
 
-  function next(number: number): void {
+  function handleNextClick(number: number): void {
     setNumberPage(number);
     setSelectedElement(number);
   }
 
-  function prev(number: number): void {
+  function handlePrevClick(number: number): void {
     setNumberPage(number);
     setSelectedElement(number);
   }
 
   return (
-    <div className="mt-5 flex items-center justify-end">
+    <nav className="mt-5 flex items-center justify-end">
       <div className="mr-5">
-        <span
+        <button
           className="hover:text-gray-800 cursor-pointer text-base text-black"
-          onClick={() => prev(selectedElement <= 0 ? 0 : selectedElement - 1)}
+          onClick={() => handlePrevClick(selectedElement <= 0 ? 0 : selectedElement - 1)}
         >
           Previous
-        </span>
+        </button>
       </div>
 
-      <div className="mr-5 flex w-fit items-end gap-2 ">
+      <div className="mr-5 flex w-fit items-end gap-2">
         {pages.map((page, index) => (
           <button
             key={index}
@@ -64,6 +64,7 @@ const Pagination: React.FC<PaginationProps> = ({ actualPage, totalPage, setNumbe
               setSelectedElement(page);
               setNumberPage(page);
             }}
+            aria-current={page === selectedElement ? "page" : undefined}
           >
             {page}
           </button>
@@ -71,16 +72,18 @@ const Pagination: React.FC<PaginationProps> = ({ actualPage, totalPage, setNumbe
       </div>
 
       <div>
-        <span
+        <button
           className="hover:text-gray-800 cursor-pointer text-base text-black"
           onClick={() =>
-            next(selectedElement >= pages.length - 1 ? totalPage - 1 : selectedElement + 1)
+            handleNextClick(
+              selectedElement >= pages.length - 1 ? totalPage - 1 : selectedElement + 1,
+            )
           }
         >
           Next
-        </span>
+        </button>
       </div>
-    </div>
+    </nav>
   );
 };
 
